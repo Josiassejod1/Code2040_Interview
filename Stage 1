@@ -1,0 +1,54 @@
+import java.io.*;
+import java.net.*;
+public class API {
+	private static HttpURLConnection connection;
+	private static OutputStream stream;
+	private static BufferedReader reader;
+	
+	private void connection(String urlS, String JSON) throws Exception{
+		
+		String urlString = urlS;
+		String JSONString = JSON;
+		
+		URL url = new URL(urlString);
+		
+		connection = (HttpURLConnection) url.openConnection();
+		connection.setDoOutput(true);
+		connection.setRequestMethod("POST");		
+		connection.setRequestProperty("Content-Type", "application/json");
+		System.out.println("PROCESSING POST REQUEST: " + JSONString);
+			
+		stream = connection.getOutputStream();
+		stream.write(JSONString.getBytes());
+		stream.flush();
+		
+		reader = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+		
+		String output;
+		System.out.println("PROCESSING OUTPUT");
+		while((output = reader.readLine()) != null){
+			System.out.println(output);
+		}
+		
+		connection.disconnect();
+		
+		
+		
+		
+		
+		
+	}
+	
+	
+	
+	
+	public static void main(String args[]) throws Exception{
+		
+		
+		API api = new API();
+		api.connection("http://challenge.code2040.org/api/register", "{\"token\":\"a7007006c094d86e60b70066d062019f\",\"github\":\"https://github.com/Josiassejod1/Code2040_Interview\"}" );
+		
+		
+		
+	}}
+
