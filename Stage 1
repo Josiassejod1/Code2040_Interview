@@ -4,12 +4,13 @@ public class API {
 	private static HttpURLConnection connection;
 	private static OutputStream stream;
 	private static BufferedReader reader;
+	private static String output;
 	//HTTP POST REQUEST
 	
 	/*
 	 * When using url the method was throw an exception
 	 */
-	private void connection(String urlS, String JSON) throws Exception{
+	String connection(String urlS, String JSON) throws Exception{
 		
 		String urlString = urlS;
 		String JSONString = JSON;
@@ -31,17 +32,24 @@ public class API {
 		//The reader is used to get the output message from the request used
 		reader = new BufferedReader(new InputStreamReader((connection.getInputStream())));
 		
-		String output;
+
 		System.out.println("PROCESSING OUTPUT");
+		StringBuilder sb = new StringBuilder("");
 		while((output = reader.readLine()) != null){
+			
+			sb.append(output);
+			output = sb.toString();
 			System.out.println(output);
+			
 		}
 		
 		connection.disconnect();
 		
 		
 		
+		output = sb.toString();
 		
+		return output;
 		
 		
 	}
@@ -60,5 +68,4 @@ public class API {
 	}}
 
 
-
-
+	
