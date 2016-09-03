@@ -1,0 +1,43 @@
+import java.io.*;
+import org.json.simple.*;
+import java.net.*;
+import javax.*;
+public class String_Reverse {
+	
+	
+	//Created a method called reverse to take the message and reverse it using the StringBuilder class
+	private static  String reversal(String string){
+		
+		String line = string;
+		String output;
+		
+		StringBuilder sb = new StringBuilder(line);
+		sb = sb.reverse();
+		output = sb.toString();
+		return output;
+	}
+
+	public static void main(String[] args) throws Exception{
+		// TODO Auto-generated method stub
+		
+		//I altered the API class so that it can have a return of type string so that I can send the message reversed.
+		//This will prevent me from having to rewrite the same code over and use the API in other challenges without having to continuously connect
+		
+		API postRequest = new API();
+		String message	= postRequest.connection("http://challenge.code2040.org/api/reverse","{\"token\":\"a7007006c094d86e60b70066d062019f\"}");
+		String_Reverse string = new String_Reverse();
+	
+		String reverse = string.reversal(message);
+	
+		System.out.println("Reversed String: " + reverse);
+		System.out.println();
+	
+	
+		
+		API postRequest2 = new API();
+		postRequest2.connection("http://challenge.code2040.org/api/reverse/validate", "{\"token\":\"a7007006c094d86e60b70066d062019f\",\"string\":\"" + reverse + "" + "\"}" );
+		
+		
+	}
+
+}
