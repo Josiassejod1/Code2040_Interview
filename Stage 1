@@ -4,24 +4,31 @@ public class API {
 	private static HttpURLConnection connection;
 	private static OutputStream stream;
 	private static BufferedReader reader;
+	//HTTP POST REQUEST
 	
+	/*
+	 * When using url the method was throw an exception
+	 */
 	private void connection(String urlS, String JSON) throws Exception{
 		
 		String urlString = urlS;
 		String JSONString = JSON;
 		
 		URL url = new URL(urlString);
-		
+		//Using the url, the connection is opened and a post request method is used to send a message to a specific url.
 		connection = (HttpURLConnection) url.openConnection();
 		connection.setDoOutput(true);
 		connection.setRequestMethod("POST");		
 		connection.setRequestProperty("Content-Type", "application/json");
 		System.out.println("PROCESSING POST REQUEST: " + JSONString);
-			
+		
+		//This part allows an output stream that writes to this connection 
+		
 		stream = connection.getOutputStream();
 		stream.write(JSONString.getBytes());
 		stream.flush();
 		
+		//The reader is used to get the output message from the request used
 		reader = new BufferedReader(new InputStreamReader((connection.getInputStream())));
 		
 		String output;
@@ -51,4 +58,7 @@ public class API {
 		
 		
 	}}
+
+
+
 
